@@ -19,6 +19,7 @@ jobs:
         run: |
           unzip -q NexChat-Android-Phase4-Fixed1.zip -d .
           test -f NexChat-Android/pubspec.yaml
+          sed -i "/mavenCentral()/a\\        jcenter()" NexChat-Android/android/build.gradle
 
       - name: Set up Java
         uses: actions/setup-java@v4
