@@ -1,11 +1,10 @@
-
 name: NexChat Android APK Build
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'NexChat-Android-Phase4-Download.zip'
+      - 'NexChat-Android-Phase4-Fixed1.zip'
       - '.github/workflows/android-apk.yml'
 
 jobs:
@@ -16,9 +15,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract Phase 4 source
+      - name: Extract NexChat source
         run: |
-          unzip -q NexChat-Android-Phase4-Download.zip -d .
+          unzip -q NexChat-Android-Phase4-Fixed1.zip -d .
           test -f NexChat-Android/pubspec.yaml
 
       - name: Set up Java
@@ -33,7 +32,7 @@ jobs:
           flutter-version: '3.7.12'
           channel: stable
 
-      - name: Prepare temporary Firebase build config
+      - name: Prepare temporary build config
         working-directory: NexChat-Android
         run: |
           mkdir -p android/app
@@ -64,7 +63,7 @@ jobs:
         working-directory: NexChat-Android
         run: flutter pub get
 
-      - name: Build APK
+      - name: Build debug APK
         working-directory: NexChat-Android
         run: flutter build apk --debug
 
@@ -73,4 +72,3 @@ jobs:
         with:
           name: NexChat-Android-Debug-APK
           path: NexChat-Android/build/app/outputs/flutter-apk/app-debug.apk
-          
